@@ -12,7 +12,9 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+names = [student['first_name'] for student in students]
+for name in set(names):
+    print(f'{name}: {names.count(name)}')
 
 
 # Задание 2
@@ -26,7 +28,9 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-# ???
+names = [student['first_name'] for student in students]
+name = max(set(names), key = names.count)
+print(f'Самое частое имя среди учеников: {name}')
 
 
 # Задание 3
@@ -51,7 +55,11 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-# ???
+for numb, groupe in enumerate(school_students, 1):
+    print (f'Самое частое имя в классе {numb}:', end=' ')
+    names_groupe = [student['first_name'] for student in groupe]
+    name = max(set(names_groupe), key = names_groupe.count)
+    print(name)
 
 
 # Задание 4
@@ -63,7 +71,7 @@ school_students = [
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '2б', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
-    {'class': '2б', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
+    {'class': '2в', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
 ]
 is_male = {
     'Олег': True,
@@ -72,7 +80,13 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
+for groups in school:
+    students = groups['students']
+    names = [student['first_name'] for student in students]
+    genders = ['boys' if is_male[name] else 'girls' for name in names]
+    boys_sum = genders.count('boys')
+    girls_sum = genders.count('girls')
+    print(f"Класс {groups['class']}: мальчики {boys_sum}, девочки {girls_sum}")
 
 
 # Задание 5
@@ -91,5 +105,14 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
-# ???
+for groups in school:
+    students = groups['students']
+    names = [student['first_name'] for student in students]
+    genders = ['boys' if is_male[name] else 'girls' for name in names]
+    boys_sum = genders.count('boys')
+    girls_sum = genders.count('girls')
+    if boys_sum > girls_sum:
+        print(f"Больше всего мальчиков в классе {groups['class']}")
+    else:
+        print(f"Больше всего девочек в классе {groups['class']}")
 
