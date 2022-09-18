@@ -111,8 +111,11 @@ for groups in school:
     genders = ['boys' if is_male[name] else 'girls' for name in names]
     boys_sum = genders.count('boys')
     girls_sum = genders.count('girls')
-    if boys_sum > girls_sum:
-        print(f"Больше всего мальчиков в классе {groups['class']}")
-    else:
-        print(f"Больше всего девочек в классе {groups['class']}")
-
+    if boys_sum > boys_count:
+        boys_class = groups['class']
+        boys_count = boys_sum   
+    if girls_sum > girls_count:
+        girls_class = groups['class']
+        girls_count = girls_sum
+print(f"Больше всего мальчиков в классе {boys_class}")
+print(f"Больше всего девочек в классе {girls_class}")
