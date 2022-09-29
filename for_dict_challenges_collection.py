@@ -1,3 +1,5 @@
+from collections import Counter
+
 # Задание 1
 # Дан список учеников, нужно посчитать количество повторений каждого имени ученика
 # Пример вывода:
@@ -12,9 +14,9 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-names = [student['first_name'] for student in students]
-for name in set(names):
-    print(f'{name}: {names.count(name)}')
+names_count = Counter([student['first_name'] for student in students])
+for name in names_count:
+    print(f'{name}: {names_count[name]}')
 
 
 # Задание 2
@@ -28,9 +30,9 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-names = [student['first_name'] for student in students]
-name = max(set(names), key = names.count)
-print(f'Самое частое имя среди учеников: {name}')
+names_count = Counter([student['first_name'] for student in students])
+name_max = names_count.most_common(1)
+print(f'Самое частое имя среди учеников: {name_max[0][0]}')
 
 
 # Задание 3
@@ -56,10 +58,9 @@ school_students = [
     ],
 ]
 for numb, group in enumerate(school_students, 1):
-    print (f'Самое частое имя в классе {numb}:', end=' ')
-    names_group = [student['first_name'] for student in group]
-    name = max(set(names_group), key = names_group.count)
-    print(name)
+    names_count = Counter([student['first_name'] for student in group])
+    name_max = names_count.most_common(1)
+    print(f'Самое частое имя в классе {numb}: {name_max[0][0]}')
 
 
 # Задание 4
@@ -81,12 +82,9 @@ is_male = {
     'Даша': False,
 }
 for group in school:
-    students = group['students']
-    names = [student['first_name'] for student in students]
-    genders = ['boys' if is_male[name] else 'girls' for name in names]
-    boys_sum = genders.count('boys')
-    girls_sum = genders.count('girls')
-    print(f"Класс {group['class']}: мальчики {boys_sum}, девочки {girls_sum}")
+    names = [student['first_name'] for student in group['students']]
+    gend_count = Counter(['boy' if is_male[name] else 'girl' for name in names])
+    print(f'Класс {group["class"]}: девочки {gend_count["girl"]}, мальчики {gend_count["boy"]}')
 
 
 # Задание 5
@@ -108,16 +106,13 @@ is_male = {
 boys_class, boys_count = 'uncnown', 0
 girls_class, girls_count = 'uncnown', 0
 for group in school:
-    students = group['students']
-    names = [student['first_name'] for student in students]
-    genders = ['boys' if is_male[name] else 'girls' for name in names]
-    boys_sum = genders.count('boys')
-    girls_sum = genders.count('girls')
-    if boys_sum > boys_count:
+    names = [student['first_name'] for student in group['students']]
+    gend_count = Counter(['boy' if is_male[name] else 'girl' for name in names])
+    if gend_count['boy'] > boys_count:
         boys_class = group['class']
-        boys_count = boys_sum   
-    if girls_sum > girls_count:
+        boys_count = gend_count['boy']
+    if gend_count['girl'] > boys_count:
         girls_class = group['class']
-        girls_count = girls_sum
-print(f"Больше всего мальчиков в классе {boys_class}")
-print(f"Больше всего девочек в классе {girls_class}")
+        girls_count = gend_count['girl']
+print(f'Больше всего мальчиков в классе {boys_class}')
+print(f'Больше всего девочек в классе {girls_class}') 
